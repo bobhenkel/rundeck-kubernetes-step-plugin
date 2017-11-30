@@ -83,6 +83,7 @@ public class KubernetesStep implements StepPlugin, Describable {
 	public static final String SECRET = "secret";
 	public static final String RESOURCE_REQUESTS = "resourceRequests";
 	public static final String CLEAN_UP = "cleanUp";
+	public static final String JOB_SPEC = "jobSpec";
 
 	private KubernetesClient client = null;
 	private com.skilld.kubernetes.Job job = null;
@@ -120,6 +121,7 @@ public class KubernetesStep implements StepPlugin, Describable {
 		.property(PropertyUtil.string(SECRET, "Secret", "The name of the kubernetes secret in format <name>;<mountpath>", false, null))
 		.property(PropertyUtil.string(RESOURCE_REQUESTS, "Resource Requests", "Request resources in format cpu:4 memory:24Gi", false, null))
 		.property(PropertyUtil.bool(CLEAN_UP, "Cleanup", "Remove finished jobs from Kubernetes", true, "true"))
+		.property(PropertyUtil.bool(JOB_SPEC, "Job Spec", "The Kubernetes Job Spec YAML", true, "K8s Job Spec YAML Goes Here"))
 		.build();
 
 	public Description getDescription() {
@@ -157,6 +159,7 @@ public class KubernetesStep implements StepPlugin, Describable {
 			jobConfiguration.setRestartPolicy((String)configuration.get(RESTART_POLICY));
 			jobConfiguration.setCompletions(Integer.valueOf(configuration.get(COMPLETIONS).toString()));
 			jobConfiguration.setParallelism(Integer.valueOf(configuration.get(PARALLELISM).toString()));
+      jobConfiguration.setJobSpec((String)configuration.get(JOB_SPEC));
 			if(null != configuration.get(IMAGE_PULL_SECRETS)){
 				jobConfiguration.setImagePullSecrets(configuration.get(IMAGE_PULL_SECRETS).toString());
 			}

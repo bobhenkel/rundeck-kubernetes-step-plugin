@@ -49,6 +49,7 @@ public class JobConfiguration {
 	private Map<String, String> persistentVolumes = new HashMap<String, String>();
 	private Map<String, String> secrets = new HashMap<String, String>();
 	private Map<String, Quantity> resourceRequests;
+	private String jobSpec;
 
 	/* Getters */
 	public String getName() {
@@ -105,6 +106,9 @@ public class JobConfiguration {
 
 	public Map<String, Quantity> getResourceRequests() { return resourceRequests; }
 
+  public String getJobSpec() {
+		return jobSpec;
+	}
 	/* Setters */
 	public void setName(String _name) {
 		name = _name;
@@ -164,6 +168,10 @@ public class JobConfiguration {
 
 	public void setResourceRequests(Map<String, Quantity> reqMap) {
 		resourceRequests = reqMap;
+	}
+
+	public void setJobSpec(String _jobSpec) {
+		jobSpec = _jobSpec;
 	}
 
 	private String buildOption(String _input, Map<String, String> _options) {
