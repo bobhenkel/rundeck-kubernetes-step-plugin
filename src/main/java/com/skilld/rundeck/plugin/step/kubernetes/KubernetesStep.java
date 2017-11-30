@@ -28,6 +28,7 @@ import com.dtolabs.rundeck.core.plugins.Plugin;
 import com.dtolabs.rundeck.core.plugins.configuration.*;
 import com.dtolabs.rundeck.plugins.descriptions.PluginDescription;
 import com.dtolabs.rundeck.plugins.descriptions.TextArea;
+import com.dtolabs.rundeck.plugins.descriptions.PluginProperty;
 import com.dtolabs.rundeck.plugins.util.DescriptionBuilder;
 import com.dtolabs.rundeck.plugins.util.PropertyBuilder;
 import com.dtolabs.rundeck.plugins.step.StepPlugin;
@@ -85,7 +86,8 @@ public class KubernetesStep implements StepPlugin, Describable {
 	public static final String SECRET = "secret";
 	public static final String RESOURCE_REQUESTS = "resourceRequests";
 	public static final String CLEAN_UP = "cleanUp";
-  @TextArea
+  @PluginProperty(title = "Job Spec", description = "The Kubernetes Job Spec YAML")
+	@TextArea
 	public static final String JOB_SPEC = "jobSpec";
 
 	private KubernetesClient client = null;
@@ -124,7 +126,7 @@ public class KubernetesStep implements StepPlugin, Describable {
 		.property(PropertyUtil.string(SECRET, "Secret", "The name of the kubernetes secret in format <name>;<mountpath>", false, null))
 		.property(PropertyUtil.string(RESOURCE_REQUESTS, "Resource Requests", "Request resources in format cpu:4 memory:24Gi", false, null))
 		.property(PropertyUtil.bool(CLEAN_UP, "Cleanup", "Remove finished jobs from Kubernetes", true, "true"))
-		.property(PropertyUtil.string(JOB_SPEC, "Job Spec", "The Kubernetes Job Spec YAML", true, "K8s Job Spec YAML Goes Here"))
+		//.property(PropertyUtil.string(JOB_SPEC, "Job Spec", "The Kubernetes Job Spec YAML", true, "K8s Job Spec YAML Goes Here"))
 		.build();
 
 	public Description getDescription() {
